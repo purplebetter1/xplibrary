@@ -99,11 +99,11 @@ exports.author_delete_get = function(req, res) {
             Author.findById(req.params.id).exec(callback)
         },
         authors_books: function(callback) {
-          Book.find({ 'author': req.params.id }).exec(callback)
+          BookInstance.find({ 'book': req.params.id }).exec(callback)
         },
     }, function(err, results) {
         if (err) { return next(err); }
-        if (results.author==null) { // No results.
+        if (results.book==null) { // No results.
             res.redirect('/catalog/authors');
         }
         // Successful, so render.
