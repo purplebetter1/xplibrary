@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var compression = require('compression');
+
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -13,7 +15,8 @@ var app = express();
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://andrewg:qiyamat@ds045734.mlab.com:45734/xplibrary';
+//var mongoDB = 'mongodb://andrewg:qiyamat@ds045734.mlab.com:45734/xplibrary';
+var mongoDB = process.env.MONGODB_URI || 'mongodb://andrewg:qiyamat@ds045734.mlab.com:45734/xplibrary';
 mongoose.connect(mongoDB, {
   useMongoClient: true
 });
@@ -32,7 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(compression()); //Compress all routes
 app.use('/', index);
 app.use('/users', users);
 app.use('/catalog', catalog);  // Add catalog routes to middleware chain.

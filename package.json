@@ -1,5 +1,5 @@
 {
-  "name": "xplibrary",
+  "name": "express-locallibrary-tutorial",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -9,10 +9,12 @@
   "dependencies": {
     "async": "^2.6.0",
     "body-parser": "~1.17.1",
+    "compression": "^1.7.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "express-validator": "^4.3.0",
+    "helmet": "^3.9.0",
     "moment": "^2.20.1",
     "mongoose": "^4.13.7",
     "morgan": "~1.8.1",
@@ -21,5 +23,8 @@
   },
   "devDependencies": {
     "nodemon": "^1.13.3"
+  },
+  "engines": {
+    "node": "8.9.4"
   }
 }

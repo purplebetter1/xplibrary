@@ -4,9 +4,16 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var catalog = require('./routes/catalog'); //Import routes for "catalog" area of site
+var compression = require('compression');
+
+// Create the Express application object
+var app = express();
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var helmet = require('helmet');
+
 
 var app = express();
 
@@ -16,6 +23,14 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(compression()); //Compress all routes
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', index);
+app.use('/users', users);
+app.use('/catalog', catalog);  // Add catalog routes to middleware chain.
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use(helmet());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
